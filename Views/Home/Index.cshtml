@@ -6,818 +6,97 @@
 }
 
 @section Styles {
-    <style>
-        @@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
-
-        /* Modern premium hero */
-
-        .page-home .hero-section {
-            margin-top: calc(-1 * var(--navbar-height, 80px));
-            padding-top: calc(var(--navbar-height, 80px) + clamp(2.75rem, 7vh, 4.75rem));
-            padding-bottom: clamp(1rem, 2vh, 1.5rem);
-            min-height: auto;
-        }
-
-        .page-home .hero-section .container {
-            margin-top: clamp(1rem, 3vh, 2rem);
-        }
-
-        .hero-section {
-            padding: clamp(0.9rem, 2vh, 1.5rem) 0;
-            margin-bottom: 0;
-            position: relative;
-            min-height: auto;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            background:
-                linear-gradient(135deg, rgba(255, 255, 255, 0.55), rgba(248, 250, 252, 0.35)),
-                radial-gradient(circle at 16% 20%, rgba(251, 191, 36, 0.1), transparent 42%),
-                radial-gradient(circle at 86% 15%, rgba(251, 146, 60, 0.08), transparent 38%),
-                url('/images/hero-home-bg.png');
-            background-size: auto, auto, auto, cover;
-            background-position: center, 16% 20%, 86% 15%, center;
-            background-repeat: no-repeat;
-        }
-
-        .hero-section::after {
-            content: '';
-            position: absolute;
-            inset: auto -120px -110px auto;
-            width: 420px;
-            height: 420px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.28), rgba(99, 102, 241, 0));
-            filter: blur(16px);
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(circle at 20% 24%, rgba(251, 191, 36, 0.06), transparent 45%),
-                linear-gradient(112deg, rgba(248, 250, 252, 0.36), rgba(241, 245, 249, 0.2));
-            backdrop-filter: blur(2px);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .hero-section .container {
-            position: relative;
-            z-index: 2;
-            background: rgba(255, 255, 255, 0.62);
-            border-radius: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.56);
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.16), 0 0 0 1px rgba(255, 255, 255, 0.55) inset;
-            backdrop-filter: blur(18px);
-            padding: clamp(1.1rem, 1.8vw, 2rem);
-        }
-
-        .hero-kicker {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.35rem 0.9rem;
-            border-radius: 999px;
-            color: #0f172a;
-            border: 1px solid rgba(191, 161, 106, 0.45);
-            background: rgba(255, 250, 240, 0.78);
-            font-size: 0.85rem;
-            margin-bottom: 0.9rem;
-        }
-
-        .hero-kicker:not([data-motion-before-typewriter]) {
-            animation: heroFadeUp 0.7s ease both;
-        }
-
-        .hero-headline {
-            font-size: clamp(2rem, 1.4rem + 2.4vw, 3.3rem);
-            font-weight: 800;
-            color: #0f172a;
-            letter-spacing: -0.04em;
-            margin-bottom: 1rem;
-            text-shadow: 0 8px 20px rgba(148, 163, 184, 0.22);
-            line-height: 1.18;
-        }
-
-        .hero-headline__line {
-            display: block;
-        }
-
-        .hero-headline__line--accent {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: baseline;
-            column-gap: 0.5em;
-            row-gap: 0.15em;
-        }
-
-        .hero-headline__suffix {
-            white-space: nowrap;
-            margin-left: 0.12em;
-        }
-
-        .hero-headline:not(.motion-before-typewriter) {
-            animation: heroFadeUp 0.8s ease 0.08s both;
-        }
-
-        .hero-rotate {
-            display: inline-grid;
-            vertical-align: baseline;
-            height: 1.15em;
-            overflow: hidden;
-            color: #b45309;
-            flex: 0 0 auto;
-            margin-right: 0.2em;
-            padding-right: 0.08em;
-        }
-
-        .hero-rotate__word {
-            grid-area: 1 / 1;
-            align-self: end;
-            white-space: nowrap;
-            opacity: 0;
-            transform: translateY(110%);
-            transition:
-                opacity 0.55s var(--ease-motion, cubic-bezier(0.16, 1, 0.3, 1)),
-                transform 0.55s var(--ease-motion, cubic-bezier(0.16, 1, 0.3, 1));
-        }
-
-        .hero-rotate__word.is-active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .hero-rotate__word.is-exiting {
-            opacity: 0;
-            transform: translateY(-110%);
-        }
-
-        [data-motion-after-typewriter] {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .hero-section .lead {
-            font-size: var(--font-size-lg);
-            color: #1e293b;
-            line-height: 1.72;
-            max-width: 560px;
-            text-shadow: none;
-        }
-
-        .hero-section .lead:not([data-motion-after-typewriter]) {
-            animation: heroFadeUp 0.85s ease 0.14s both;
-        }
-
-        .hero-image {
-            position: relative;
-            overflow: visible;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .hero-portrait-block {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: min(360px, 88%);
-        }
-
-        .hero-portrait-caption {
-            width: 100%;
-            margin-top: 1rem;
-            padding: 0 0.35rem;
-            text-align: center;
-        }
-
-        .hero-portrait-caption::before {
-            content: '';
-            display: block;
-            width: 3.25rem;
-            height: 3px;
-            margin: 0 auto 0.85rem;
-            border-radius: 999px;
-            background: linear-gradient(90deg, transparent, #f59e0b 20%, #fbbf24 50%, #f59e0b 80%, transparent);
-            box-shadow: 0 0 12px rgba(245, 158, 11, 0.45);
-        }
-
-        .hero-portrait-signature {
-            margin: 0;
-            font-family: 'Great Vibes', cursive;
-            font-size: clamp(2.15rem, 1.5rem + 2.6vw, 3rem);
-            font-weight: 400;
-            line-height: 1.05;
-            letter-spacing: 0.01em;
-            text-align: center;
-            color: #0f172a;
-        }
-
-        .hero-portrait-signature.is-signature-typing {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: none !important;
-            -webkit-text-fill-color: #0f172a !important;
-            color: #0f172a !important;
-            animation: none !important;
-        }
-
-        .hero-portrait-signature .signature-type-line {
-            display: block;
-            min-height: 1.05em;
-            white-space: nowrap;
-            color: #0f172a;
-            -webkit-text-fill-color: #0f172a;
-            font-family: 'Great Vibes', cursive;
-        }
-
-        .hero-portrait-signature .signature-type-output {
-            color: #0f172a;
-            -webkit-text-fill-color: #0f172a;
-            background: none;
-        }
-
-        .hero-portrait-signature .signature-type-line .typewriter-cursor {
-            display: inline-block;
-            width: 2px;
-            height: 0.75em;
-            margin-left: 2px;
-            vertical-align: -0.05em;
-            border-radius: 2px;
-            -webkit-text-fill-color: initial;
-            color: initial;
-            background: linear-gradient(180deg, #d97706, #fbbf24);
-            -webkit-background-clip: border-box;
-            background-clip: border-box;
-            animation: typewriterBlink 0.72s step-end infinite;
-        }
-
-        .hero-portrait-role {
-            margin: 0.45rem 0 0;
-            font-size: clamp(0.78rem, 0.72rem + 0.25vw, 0.9rem);
-            font-weight: 600;
-            color: #64748b;
-            letter-spacing: 0.03em;
-            line-height: 1.45;
-        }
-
-        .hero-portrait-role[data-motion-after-signature] {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-
-        .hero-portrait-role[data-motion-after-signature].motion-after-signature {
-            opacity: 1;
-            transform: none;
-            transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .hero-portrait {
-            position: relative;
-            width: 100%;
-            border-radius: 30px;
-            overflow: hidden;
-            aspect-ratio: 4/5;
-            border: none;
-            box-shadow: 0 30px 70px -20px rgba(2, 6, 23, 0.88);
-            transform: perspective(1100px) rotateY(-8deg) rotateX(2deg);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            background: #f3eeea;
-            animation: heroFadeUp 0.9s ease 0.22s both;
-        }
-
-        .hero-portrait:hover {
-            transform: perspective(1100px) rotateY(-3deg) rotateX(0deg) translateY(-2px);
-            box-shadow: 0 38px 92px -16px rgba(2, 6, 23, 0.95);
-        }
-
-        .hero-portrait img,
-        .hero-portrait-img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100% !important;
-            max-width: none;
-            object-fit: cover;
-            object-position: center 12%;
-            transform: scale(1.04);
-            transform-origin: center center;
-            display: block;
-        }
-
-        .hero-portrait-glow {
-            position: absolute;
-            inset: auto -25% -20% auto;
-            width: 75%;
-            aspect-ratio: 1/1;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(245, 158, 11, 0.24), rgba(245, 158, 11, 0));
-            filter: blur(12px);
-            pointer-events: none;
-            z-index: -1;
-            animation: heroGlowPulse 4s ease-in-out infinite;
-        }
-
-        .hero-section .hero-btn-group {
-            margin-top: 1.1rem;
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 0.65rem;
-        }
-
-        .hero-section .hero-btn-group:not([data-motion-after-typewriter]) {
-            animation: heroFadeUp 0.95s ease 0.28s both;
-        }
-
-        .hero-section .hero-btn-group .btn {
-            min-height: 44px;
-            border-radius: 0.85rem;
-            font-size: 0.95rem;
-            transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
-        }
-
-        .hero-section .hero-btn-group .btn-primary {
-            background: linear-gradient(135deg, #fde68a 0%, #fcd34d 45%, #f59e0b 100%);
-            color: #1f2937;
-            border: none;
-            box-shadow: 0 14px 26px rgba(245, 158, 11, 0.32);
-        }
-        .hero-section .hero-btn-group .btn-primary:hover {
-            background: linear-gradient(135deg, #fef3c7 0%, #fcd34d 55%, #f59e0b 100%);
-            color: #111827;
-            transform: translateY(-2px);
-        }
-        .hero-section .hero-btn-group .btn-outline-primary {
-            background: rgba(255, 255, 255, 0.72);
-            color: #0f172a;
-            border: 1px solid rgba(148, 163, 184, 0.45);
-        }
-        .hero-section .hero-btn-group .btn-outline-primary:hover {
-            background: rgba(255, 248, 230, 0.95);
-            color: #020617;
-            border-color: rgba(191, 161, 106, 0.56);
-        }
-        .hero-section .hero-btn-group .btn-secondary {
-            background: rgba(255, 255, 255, 0.72);
-            color: #0f172a;
-            border: 1px solid rgba(148, 163, 184, 0.45);
-        }
-        .hero-section .hero-btn-group .btn-secondary:hover {
-            background: rgba(255, 248, 230, 0.95);
-            color: #020617;
-            border-color: rgba(191, 161, 106, 0.56);
-        }
-
-        @@keyframes heroFadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(14px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @@keyframes heroGlowPulse {
-            0%, 100% { opacity: .75; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.08); }
-        }
-
-        @@media (min-width: 1200px) {
-            .hero-section .hero-layout {
-                --bs-gutter-x: 1.1rem;
-            }
-        }
-
-        /* Compact laptop / tablet: keep the portrait beside the copy. */
-        @@media (max-width: 1199.98px) and (min-width: 701px) {
-            .page-home .hero-section {
-                padding-top: calc(var(--navbar-height, 80px) + clamp(5.75rem, 10vh, 6.75rem));
-                padding-bottom: clamp(0.75rem, 1.6vh, 1.15rem);
-            }
-
-            .page-home .hero-section .container {
-                width: min(100% - clamp(1.25rem, 3vw, 2rem), 1080px);
-                max-width: none;
-                margin-top: 0;
-                padding: clamp(0.85rem, 1.5vw, 1.2rem);
-                border-radius: clamp(18px, 2vw, 24px);
-            }
-
-            .hero-section .hero-layout {
-                display: grid;
-                grid-template-columns: minmax(0, 1.5fr) minmax(168px, 0.85fr);
-                align-items: center;
-                column-gap: clamp(18px, 3vw, 45px);
-                row-gap: 0;
-                margin-left: 0;
-                margin-right: 0;
-            }
-
-            .hero-section .hero-layout > .hero-copy,
-            .hero-section .hero-layout > .hero-visual {
-                width: auto;
-                max-width: none;
-                flex: none;
-                min-width: 0;
-                margin-top: 0;
-                padding: 0;
-            }
-
-            .hero-kicker {
-                margin-bottom: 0.55rem;
-                font-size: 0.78rem;
-                padding: 0.28rem 0.7rem;
-            }
-
-            .hero-section .hero-headline {
-                font-size: clamp(1.45rem, 0.55rem + 2vw, 2.15rem);
-                line-height: 1.12;
-                margin-bottom: 0.5rem;
-                max-width: 100%;
-                min-width: 0;
-            }
-
-            .hero-headline__line--accent {
-                flex-direction: column;
-                align-items: flex-start;
-                row-gap: 0.04em;
-            }
-
-            .hero-headline__suffix {
-                margin-left: 0;
-            }
-
-            .hero-rotate {
-                max-width: 100%;
-            }
-
-            .hero-section .lead {
-                font-size: clamp(0.9rem, 0.84rem + 0.22vw, 1.02rem);
-                line-height: 1.5;
-                max-width: 46rem;
-                margin-bottom: 0;
-            }
-
-            .hero-section .hero-btn-group {
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                gap: 0.4rem;
-                margin-top: 0.7rem;
-                margin-bottom: 0;
-                max-width: none;
-            }
-
-            .hero-section .hero-btn-group .btn {
-                flex: 0 1 auto;
-                width: auto;
-                min-width: 0;
-                max-width: 100%;
-                min-height: 38px;
-                padding: 0.38rem 0.72rem;
-                font-size: 0.82rem;
-                border-radius: 0.7rem;
-            }
-
-            .hero-image {
-                max-width: none;
-                width: 100%;
-                margin: 0;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .hero-portrait-block {
-                width: min(100%, 280px);
-            }
-
-            .hero-portrait,
-            .hero-portrait:hover {
-                width: 100%;
-                aspect-ratio: 3 / 4;
-                border-radius: 22px;
-                transform: none;
-            }
-
-            .hero-portrait img,
-            .hero-portrait-img {
-                object-fit: cover;
-                object-position: 46% 16%;
-                transform: none;
-            }
-
-            .hero-portrait-caption {
-                margin-top: 0.65rem;
-                padding: 0;
-            }
-
-            .hero-portrait-caption::before {
-                margin-bottom: 0.5rem;
-            }
-
-            .hero-portrait-signature {
-                font-size: clamp(1.55rem, 1.15rem + 1.4vw, 2.15rem);
-            }
-
-            .hero-portrait-role {
-                font-size: 0.72rem;
-                margin-top: 0.3rem;
-            }
-        }
-
-        @@media (max-width: 1199.98px) and (min-width: 701px) and (max-height: 820px) {
-            .page-home .hero-section {
-                padding-bottom: 0.55rem;
-            }
-
-            .page-home .hero-section .container {
-                margin-top: 0;
-                padding: 0.75rem 0.85rem;
-            }
-
-            .hero-section .hero-headline {
-                font-size: clamp(1.35rem, 0.5rem + 1.7vw, 1.9rem);
-                margin-bottom: 0.35rem;
-            }
-
-            .hero-section .lead {
-                font-size: 0.88rem;
-                line-height: 1.42;
-            }
-
-            .hero-section .hero-btn-group {
-                margin-top: 0.5rem;
-            }
-
-            .hero-portrait-block {
-                width: min(100%, 240px);
-            }
-
-            .hero-portrait,
-            .hero-portrait:hover {
-                aspect-ratio: 5 / 6;
-            }
-
-            .hero-portrait-caption {
-                margin-top: 0.4rem;
-            }
-
-            .hero-portrait-signature {
-                font-size: clamp(1.4rem, 1.1rem + 1vw, 1.85rem);
-            }
-        }
-
-        /* Mobile: badge, headline, description, portrait, then actions. */
-        @@media (max-width: 700px) {
-            .page-home .hero-section {
-                min-height: auto;
-                padding-top: calc(var(--navbar-height, 80px) + clamp(5.5rem, 9vh, 6.25rem));
-                padding-bottom: clamp(0.75rem, 2vh, 1.15rem);
-            }
-
-            .page-home .hero-section .container {
-                margin-top: 0;
-                padding: clamp(0.85rem, 3vw, 1.15rem);
-                border-radius: 20px;
-            }
-
-            .hero-section .hero-layout {
-                display: flex;
-                flex-direction: column;
-                align-items: stretch !important;
-                margin-left: 0;
-                margin-right: 0;
-                row-gap: 0;
-            }
-
-            .hero-section .hero-copy {
-                display: contents;
-            }
-
-            .hero-section .hero-kicker { order: 1; align-self: flex-start; }
-            .hero-section .hero-headline { order: 2; }
-            .hero-section .lead { order: 3; }
-            .hero-section .hero-visual { order: 4; }
-            .hero-section .hero-btn-group { order: 5; }
-
-            .hero-section .hero-layout > .hero-visual {
-                width: 100%;
-                max-width: 100%;
-                flex: none;
-                min-width: 0;
-                margin-top: 0.85rem;
-                padding: 0;
-            }
-
-            .hero-section .hero-headline {
-                font-size: clamp(1.45rem, 4.6vw, 1.9rem);
-                line-height: 1.16;
-                margin-bottom: 0.45rem;
-                width: 100%;
-                max-width: 100%;
-                min-width: 0;
-                align-self: stretch;
-            }
-
-            .hero-headline__line--accent {
-                flex-direction: column;
-                align-items: flex-start;
-                row-gap: 0.04em;
-            }
-
-            .hero-headline__suffix {
-                margin-left: 0;
-            }
-
-            .hero-rotate {
-                max-width: 100%;
-            }
-
-            .hero-section .lead {
-                font-size: 0.95rem;
-                line-height: 1.5;
-                max-width: none;
-            }
-
-            .hero-image {
-                max-width: none;
-                width: 100%;
-                margin: 0;
-            }
-
-            .hero-portrait-block {
-                width: min(210px, 58vw);
-            }
-
-            .hero-portrait-signature {
-                font-size: clamp(1.6rem, 6.5vw, 2.15rem);
-            }
-
-            .hero-portrait-caption {
-                margin-top: 0.55rem;
-            }
-
-            .hero-portrait,
-            .hero-portrait:hover {
-                transform: none;
-                aspect-ratio: 4 / 5;
-                border-radius: 20px;
-            }
-
-            .hero-portrait img,
-            .hero-portrait-img {
-                object-fit: cover;
-                object-position: 46% 14%;
-                transform: none;
-            }
-
-            .hero-section .hero-btn-group {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 0.45rem;
-                width: 100%;
-                max-width: none;
-                margin-top: 0.9rem;
-                margin-bottom: 0;
-            }
-
-            .hero-section .hero-btn-group .btn {
-                width: 100%;
-                max-width: none;
-                min-width: 0;
-                min-height: 44px;
-                padding: 0.55rem 0.85rem;
-                font-size: 0.92rem;
-                white-space: normal;
-            }
-        }
-
-        @@media (max-width: 430px) {
-            .page-home .hero-section .container {
-                padding: 0.8rem 0.7rem;
-            }
-
-            .hero-section .hero-headline {
-                font-size: clamp(1.18rem, 6.5vw, 1.5rem);
-                letter-spacing: -0.035em;
-            }
-
-            .hero-headline__line--accent {
-                column-gap: 0.35em;
-            }
-
-            .hero-headline__suffix {
-                white-space: normal;
-            }
-
-            .hero-kicker {
-                font-size: 0.75rem;
-                padding: 0.28rem 0.65rem;
-                margin-bottom: 0.5rem;
-            }
-
-            .hero-section .lead {
-                font-size: 0.9rem;
-            }
-
-            .hero-portrait-block {
-                width: min(180px, 54vw);
-            }
-
-            .hero-portrait-signature {
-                font-size: clamp(1.45rem, 7vw, 1.85rem);
-            }
-
-            .hero-portrait-role {
-                font-size: 0.7rem;
-            }
-        }
-
-        @@media (max-height: 820px) and (min-width: 1200px) {
-            .hero-section {
-                min-height: auto;
-                padding: .75rem 0;
-            }
-            .hero-section .container {
-                padding: 1rem;
-            }
-            .hero-section .hero-headline {
-                font-size: clamp(1.8rem, 1.2rem + 1.8vw, 2.7rem);
-                margin-bottom: .6rem;
-            }
-            .hero-section .lead {
-                margin-bottom: .55rem;
-                line-height: 1.58;
-            }
-            .hero-portrait-block {
-                width: min(300px, 82%);
-            }
-            .hero-portrait {
-                width: 100%;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="~/css/hero.css" asp-append-version="true" />
 }
 
-<div id="home" class="hero-section">
-    <div class="container">
-        <div class="row align-items-center hero-layout">
-            <div class="col-lg-7 col-md-7 order-lg-1 hero-copy">
-                <div class="hero-kicker" data-motion-before-typewriter>Available for hire · 2026</div>
-                <h1 class="display-4 hero-headline" data-motion-before-typewriter>
+<section id="home" class="hero-section" aria-label="Introduction">
+    <div class="hero-canvas">
+        <div class="hero-layout">
+            <div class="hero-copy">
+                <p class="hero-kicker" data-motion-before-typewriter>
+                    <span class="hero-kicker__dot" aria-hidden="true"></span>
+                    Available for opportunities · Ontario, Canada
+                </p>
+                <h1 class="hero-headline" data-motion-before-typewriter>
                     <span class="hero-headline__line">Building elegant</span>
-                    <span class="hero-headline__line hero-headline__line--accent">
-                        <span class="hero-rotate" data-rotate-words="digital experiences|Shopify storefronts|web applications|high-performance sites" aria-live="polite">
-                            <span class="hero-rotate__word is-active">digital experiences</span>
-                        </span><span class="hero-headline__suffix">that perform.</span>
-                    </span>
+                    <span class="hero-headline__line hero-headline__line--accent">web applications</span>
+                    <span class="hero-headline__line">that perform<span class="hero-headline__period">.</span></span>
                 </h1>
-                <p class="lead mb-0" data-motion-after-typewriter>Full-stack developer with 5+ years building websites, Shopify stores, apps, and brand experiences — from idea to launch.</p>
-                <div class="hero-btn-group" data-motion-after-typewriter>
-                    <a asp-controller="Home" asp-action="Projects" class="btn btn-primary">
-                        <i class="fas fa-code"></i>View My Work
+                <p class="hero-lead" data-motion-after-typewriter>Full-stack developer with 5+ years building websites, Shopify stores, web apps, and brand experiences — from idea to launch.</p>
+                <div class="hero-actions" data-motion-after-typewriter>
+                    <a asp-controller="Home" asp-action="Projects" class="hero-cta hero-cta--primary">
+                        <span aria-hidden="true">&lt;/&gt;</span>
+                        View My Work
+                        <span class="hero-cta__arrow" aria-hidden="true">→</span>
                     </a>
-                    <a asp-controller="Home" asp-action="Resume" class="btn btn-secondary">
-                        <i class="fas fa-file-alt"></i>View Resume
+                    <a asp-controller="Home" asp-action="Resume" class="hero-cta">
+                        <i class="fas fa-file-lines" aria-hidden="true"></i>
+                        View Resume
                     </a>
-                    <a asp-controller="Home" asp-action="Contact" class="btn btn-outline-primary">
-                        <i class="fas fa-envelope"></i>Contact Me
+                    <a asp-controller="Home" asp-action="Contact" class="hero-cta">
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                        Contact Me
                     </a>
                 </div>
+                <ul class="hero-proof" data-motion-after-typewriter>
+                    <li>
+                        <span class="hero-proof__icon" aria-hidden="true"><i class="fas fa-briefcase"></i></span>
+                        <span><strong>5+ Years</strong>Experience</span>
+                    </li>
+                    <li>
+                        <span class="hero-proof__icon" aria-hidden="true"><i class="fas fa-laptop-code"></i></span>
+                        <span><strong>Full-Stack</strong>Development</span>
+                    </li>
+                    <li>
+                        <span class="hero-proof__icon" aria-hidden="true"><i class="fas fa-bag-shopping"></i></span>
+                        <span><strong>Shopify</strong>Expertise</span>
+                    </li>
+                    <li>
+                        <span class="hero-proof__icon" aria-hidden="true"><i class="fas fa-database"></i></span>
+                        <span><strong>.NET</strong>&amp; Databases</span>
+                    </li>
+                </ul>
             </div>
-            <div class="col-lg-5 col-md-5 order-lg-2 mt-3 mt-lg-0 hero-visual" data-motion-float>
-                <div class="hero-image">
-                    <div class="hero-portrait-block">
-                        <div class="hero-portrait" role="img" aria-label="Portrait photo of Anastasiia">
-                            <img src="/images/hero-image.png?v=2" alt="Anastasiia portrait photo" class="hero-portrait-img" data-skip-global-img>
-                        </div>
-                        <div class="hero-portrait-caption">
-                            <p class="hero-portrait-signature"
-                               data-signature-typewriter
-                               data-signature-first="Anastasiia"
-                               data-signature-last="Khrustaleva"
-                               data-typewriter-speed="78"
-                               data-typewriter-delay="400"
-                               aria-label="Anastasiia Khrustaleva"></p>
-                            <p class="hero-portrait-role" data-motion-after-signature>Software Developer · Web &amp; Product Designer</p>
-                        </div>
+            <div class="hero-visual" data-motion-float>
+                <svg class="hero-arc" viewBox="0 0 520 640" fill="none" aria-hidden="true">
+                    <path d="M40 600C190 520 330 360 470 40" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/>
+                </svg>
+                <div class="hero-frame">
+                    <span class="hero-spark hero-spark--a" aria-hidden="true"></span>
+                    <span class="hero-spark hero-spark--b" aria-hidden="true"></span>
+                    <div class="hero-portrait">
+                        <img src="~/images/hero-portrait.jpg" asp-append-version="true" alt="Anastasiia Khrustaleva, software developer" class="hero-portrait-img" data-skip-global-img width="864" height="1152" fetchpriority="high" decoding="async">
                     </div>
-                    <div class="hero-portrait-glow" aria-hidden="true"></div>
+                    <ul class="hero-chips" aria-label="Core technologies">
+                        <li class="hero-chip hero-chip--net" style="--float-dur: 5.4s; --float-delay: 0.1s" data-motion-after-typewriter>
+                            <span class="hero-chip__float"><span class="hero-chip__mark hero-chip__mark--net" aria-hidden="true">.N</span>.NET</span>
+                        </li>
+                        <li class="hero-chip hero-chip--shop" style="--float-dur: 4.8s; --float-delay: 0.6s" data-motion-after-typewriter>
+                            <span class="hero-chip__float"><span class="hero-chip__mark hero-chip__mark--shop" aria-hidden="true"><i class="fab fa-shopify"></i></span>Shopify</span>
+                        </li>
+                        <li class="hero-chip hero-chip--js" style="--float-dur: 5.8s; --float-delay: 0.3s" data-motion-after-typewriter>
+                            <span class="hero-chip__float"><span class="hero-chip__mark hero-chip__mark--js" aria-hidden="true">JS</span>JavaScript</span>
+                        </li>
+                        <li class="hero-chip hero-chip--sql" style="--float-dur: 4.6s; --float-delay: 0.9s" data-motion-after-typewriter>
+                            <span class="hero-chip__float"><span class="hero-chip__mark hero-chip__mark--sql" aria-hidden="true"><i class="fas fa-database"></i></span>SQL</span>
+                        </li>
+                    </ul>
+                    <aside class="hero-note" data-motion-after-typewriter>
+                        <div class="hero-note__top">
+                            <p class="hero-note__title">Turning ideas<br>into real products</p>
+                            <span class="hero-note__arrow" aria-hidden="true">
+                                <svg viewBox="0 0 16 16" width="13" height="13" focusable="false">
+                                    <path d="M4.2 11.8L11.8 4.2M11.8 4.2H6.4M11.8 4.2V9.6" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <p>Web Development · E-commerce<br>Branding · Performance</p>
+                    </aside>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
+</section>
 <section class="story-scroll story-scroll--after-hero" id="process" aria-label="How I work">
     <div class="container">
         <div class="story-scroll__inner">
