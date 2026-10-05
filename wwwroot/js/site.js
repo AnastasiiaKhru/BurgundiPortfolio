@@ -66,12 +66,32 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.appendChild(measure);
 
             const setRotateWidth = () => {
+                container.style.fontSize = '';
+                container.style.width = 'auto';
+                const sample = headline || wordSample;
+                if (sample) {
+                    const styles = window.getComputedStyle(sample);
+                    measure.style.font = styles.font;
+                    measure.style.letterSpacing = styles.letterSpacing;
+                    measure.style.fontWeight = styles.fontWeight;
+                }
+
                 let maxWidth = 0;
                 words.forEach((word) => {
                     measure.textContent = word;
                     maxWidth = Math.max(maxWidth, measure.offsetWidth);
                 });
-                container.style.width = `${Math.ceil(maxWidth * 1.03) + 10}px`;
+
+                const needed = Math.ceil(maxWidth * 1.03) + 10;
+                const available = headline ? headline.clientWidth : needed;
+                if (available > 32 && needed > available) {
+                    const fit = (available - 8) / needed;
+                    container.style.fontSize = `${Math.max(fit, 0.68)}em`;
+                    container.style.width = `${available}px`;
+                    return;
+                }
+
+                container.style.width = `${needed}px`;
             };
 
             setRotateWidth();
