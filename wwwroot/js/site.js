@@ -95,6 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             setRotateWidth();
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(setRotateWidth);
+            }
 
             let index = 0;
             const firstWord = container.querySelector('.hero-rotate__word');
@@ -777,9 +780,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    const initChipType = () => {
+        const labels = document.querySelectorAll('[data-chip-type]');
+        if (!labels.length || prefersReduced) return;
+
+        labels.forEach((label, index) => {
+            const word = (label.getAttribute('data-chip-type') || '').trim();
+            const typed = label.querySelector('.hero-chip__typed');
+            if (!word || !typed) return;
+
+            const caret = document.createElement('span');
+            caret.className = 'hero-chip__caret';
+            caret.setAttribute('aria-hidden', 'true');
+            typed.textContent = '';
+            typed.appendChild(caret);
+
+            window.setTimeout(() => {
+                let count = 0;
+                const step = () => {
+                    count += 1;
+                    typed.textContent = word.slice(0, count);
+                    if (count < word.length) {
+                        window.setTimeout(step, 68);
+                        return;
+                    }
+                    window.setTimeout(() => caret.classList.add('is-done'), 650);
+                };
+                step();
+            }, 900 + index * 320);
+        });
+    };
+
     initSignatureTypewriter();
     initTypewriters();
     initRotatingWords();
+    initChipType();
     initHomeHeroMotion();
     initHireReadyMotion();
     initMagneticButtons();

@@ -113,6 +113,41 @@
     color: var(--hero-orange);
 }
 
+.hero-headline__line--accent {
+    white-space: normal;
+    max-width: 100%;
+}
+
+.hero-rotate {
+    display: inline-grid;
+    max-width: 100%;
+    height: 1.08em;
+    overflow: hidden;
+    color: var(--hero-orange);
+    vertical-align: bottom;
+}
+
+.hero-rotate__word {
+    grid-area: 1 / 1;
+    align-self: center;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(105%);
+    transition:
+        opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-rotate__word.is-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-rotate__word.is-exiting {
+    opacity: 0;
+    transform: translateY(-105%);
+}
+
 .hero-lead {
     grid-area: lead;
     max-width: 34rem;
@@ -369,70 +404,49 @@
 .hero-chip__mark--shop { background: #e7f6ee; color: #1f7a45; }
 .hero-chip__mark--js { background: #fff4d6; color: #8a5a00; }
 .hero-chip__mark--sql { background: #eef2f6; color: #3d5166; }
+.hero-chip__mark--csharp { background: rgba(254, 243, 199, 0.95); color: #b45309; }
+
+.hero-chip__label {
+    display: inline-grid;
+    align-items: center;
+}
+
+.hero-chip__ghost,
+.hero-chip__typed {
+    grid-area: 1 / 1;
+    white-space: nowrap;
+}
+
+.hero-chip__typed {
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+}
+
+.hero-chip__ghost {
+    visibility: hidden;
+}
+
+.hero-chip__caret {
+    display: inline-block;
+    width: 1px;
+    height: 0.8em;
+    margin-left: 1px;
+    background: #b45309;
+    vertical-align: -0.05em;
+    animation: heroCaret 0.72s step-end infinite;
+}
+
+.hero-chip__caret.is-done {
+    opacity: 0;
+    animation: none;
+}
 
 .hero-chip--net { top: 9%; left: -2px; }
 .hero-chip--shop { top: 36%; left: -6px; }
 .hero-chip--js { top: 8%; right: -2px; }
 .hero-chip--sql { top: 44%; right: 8px; }
-
-.hero-note {
-    position: absolute;
-    z-index: 4;
-    right: 1.15rem;
-    bottom: 1.35rem;
-    width: min(236px, 64%);
-    padding: 0.95rem 0.95rem 0.85rem;
-    border-radius: 22px;
-    border: 1px solid rgba(255, 255, 255, 0.78);
-    background: rgba(255, 252, 248, 0.84);
-    box-shadow: 0 16px 36px rgba(72, 48, 22, 0.12);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-}
-
-.hero-note__top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 0.5rem;
-}
-
-.hero-note__title {
-    margin: 0;
-    color: var(--hero-ink);
-    font-size: 1.08rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.15;
-}
-
-.hero-note p {
-    margin: 0.45rem 0 0;
-    color: #7a7168;
-    font-size: 0.68rem;
-    font-weight: 500;
-    line-height: 1.45;
-}
-
-.hero-note__arrow {
-    display: grid;
-    place-items: center;
-    width: 1.7rem;
-    height: 1.7rem;
-    flex: 0 0 auto;
-    border-radius: 999px;
-    border: 1px solid rgba(224, 122, 47, 0.35);
-    color: var(--hero-orange-deep);
-    transition: transform 0.25s ease;
-}
-
-.hero-note__arrow svg {
-    display: block;
-}
-
-.hero-note:hover .hero-note__arrow {
-    transform: translate(2px, -2px);
-}
+.hero-chip--csharp { bottom: 14%; right: 8%; }
 
 @keyframes heroDot {
     0% { box-shadow: 0 0 0 0 rgba(47, 157, 87, 0.4); }
@@ -443,6 +457,11 @@
 @keyframes heroChipFloat {
     from { transform: translateY(0); }
     to { transform: translateY(-5px); }
+}
+
+@keyframes heroCaret {
+    0%, 45% { opacity: 1; }
+    50%, 100% { opacity: 0; }
 }
 
 @media (max-width: 1100px) {
@@ -464,7 +483,8 @@
     }
 
     .hero-chip--shop,
-    .hero-chip--sql {
+    .hero-chip--sql,
+    .hero-chip--csharp {
         display: none;
     }
 
@@ -482,16 +502,6 @@
         padding-left: 0.55rem;
     }
 
-    .hero-note {
-        right: 0.7rem;
-        bottom: 0.75rem;
-        width: min(176px, 72%);
-        padding: 0.65rem 0.7rem;
-    }
-
-    .hero-note__title {
-        font-size: 0.86rem;
-    }
 }
 
 @media (max-width: 760px) {
@@ -553,6 +563,7 @@
 
     .hero-chip--shop,
     .hero-chip--sql,
+    .hero-chip--csharp,
     .hero-spark,
     .hero-arc {
         display: none;
@@ -560,12 +571,6 @@
 
     .hero-chip--net { top: auto; bottom: 24%; left: 0; }
     .hero-chip--js { top: auto; bottom: 24%; right: 0; left: auto; }
-
-    .hero-note {
-        right: 0.65rem;
-        bottom: 0.7rem;
-        width: min(188px, 70%);
-    }
 
     .hero-actions {
         display: grid;
@@ -637,13 +642,21 @@
 
 @media (prefers-reduced-motion: reduce) {
     .hero-kicker__dot,
-    .hero-chip__float {
+    .hero-chip__float,
+    .hero-chip__caret {
         animation: none;
+    }
+
+    .hero-chip__caret {
+        display: none;
+    }
+
+    .hero-rotate__word {
+        transition: none;
     }
 
     .hero-cta,
     .hero-cta__arrow,
-    .hero-note__arrow,
     .hero-chip__float {
         transition: none;
     }
