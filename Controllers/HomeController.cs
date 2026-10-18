@@ -71,6 +71,7 @@ public class HomeController : Controller
     public IActionResult WPConstructionDemo() => View();
     public IActionResult ValentineDemo() => View();
     public IActionResult SkyBridgeITDemo() => View();
+    public IActionResult AuroraDemo() => View();
 
     private record DemoFrameMeta(string Title, string UrlLabel);
 
@@ -89,6 +90,7 @@ public class HomeController : Controller
         ["WPConstructionDemo"] = new("Heritage Build — WordPress Demo", "heritagebuild.demo - Construction"),
         ["ValentineDemo"] = new("Valentine Demo", "valentine.demo - Interactive Card"),
         ["SkyBridgeITDemo"] = new("SkyBridge IT Solutions", "skybridgeit.demo - IT Consulting"),
+        ["AuroraDemo"] = new("Aurora — TikTok live game", "aurora.live - TikTok live game"),
     };
 
     [HttpGet("/Home/DemoFrame/{name}")]

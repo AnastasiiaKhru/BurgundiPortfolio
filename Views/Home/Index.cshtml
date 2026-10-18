@@ -2,95 +2,32 @@
 
 @{
     ViewData["Title"] = "Home";
-    ViewData["BodyClass"] = "page-home";
+    ViewData["BodyClass"] = "page-home theme-editorial";
 }
 
-@section Styles {
-    <link rel="stylesheet" href="~/css/hero.css" asp-append-version="true" />
-}
-
-<section id="home" class="hero-section" aria-label="Introduction">
-    <div class="hero-canvas">
-        <div class="hero-layout">
-            <div class="hero-copy">
-                <p class="hero-kicker" data-motion-before-typewriter>
-                    <span class="hero-kicker__dot" aria-hidden="true"></span>
-                    Available for opportunities · Ontario, Canada
-                </p>
-                <h1 class="hero-headline" data-motion-before-typewriter>
-                    <span class="hero-headline__line">Building elegant</span>
-                    <span class="hero-headline__line hero-headline__line--accent">
-                        <span class="hero-rotate" data-rotate-words="web applications|Shopify storefronts|digital experiences|high-performance sites" aria-live="polite">
-                            <span class="hero-rotate__word is-active">web applications</span>
-                        </span>
-                    </span>
-                    <span class="hero-headline__line">that perform<span class="hero-headline__period">.</span></span>
-                </h1>
-                <p class="hero-lead" data-motion-after-typewriter>Full-stack developer with 5+ years building websites, Shopify stores, web apps, and brand experiences — from idea to launch.</p>
-                <div class="hero-actions" data-motion-after-typewriter>
-                    <a asp-controller="Home" asp-action="Projects" class="hero-cta hero-cta--primary">
-                        <span aria-hidden="true">&lt;/&gt;</span>
-                        View My Work
-                        <span class="hero-cta__arrow" aria-hidden="true">→</span>
-                    </a>
-                    <a asp-controller="Home" asp-action="Resume" class="hero-cta">
-                        <i class="fas fa-file-lines" aria-hidden="true"></i>
-                        View Resume
-                    </a>
-                    <a asp-controller="Home" asp-action="Contact" class="hero-cta">
-                        <i class="fas fa-envelope" aria-hidden="true"></i>
-                        Contact Me
-                    </a>
-                </div>
-                <ul class="hero-proof" data-motion-after-typewriter>
-                    <li>
-                        <span class="hero-proof__icon" aria-hidden="true"><i class="fas fa-briefcase"></i></span>
-                        <span><strong>5+ Years</strong>Experience</span>
-                    </li>
-                    <li>
-                        <span class="hero-proof__icon" aria-hidden="true"><i class="fas fa-laptop-code"></i></span>
-                        <span><strong>Full-Stack</strong>Development</span>
-                    </li>
-                    <li>
-                        <span class="hero-proof__icon" aria-hidden="true"><i class="fas fa-bag-shopping"></i></span>
-                        <span><strong>Shopify</strong>Expertise</span>
-                    </li>
-                    <li>
-                        <span class="hero-proof__icon" aria-hidden="true"><i class="fas fa-database"></i></span>
-                        <span><strong>.NET</strong>&amp; Databases</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="hero-visual" data-motion-float>
-                <svg class="hero-arc" viewBox="0 0 520 640" fill="none" aria-hidden="true">
-                    <path d="M40 600C190 520 330 360 470 40" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/>
-                </svg>
-                <div class="hero-frame">
-                    <span class="hero-spark hero-spark--a" aria-hidden="true"></span>
-                    <span class="hero-spark hero-spark--b" aria-hidden="true"></span>
-                    <div class="hero-portrait">
-                        <img src="~/images/hero-portrait.jpg" asp-append-version="true" alt="Anastasiia Khrustaleva, software developer" class="hero-portrait-img" data-skip-global-img width="864" height="1152" fetchpriority="high" decoding="async">
+<section id="home" class="ghero" data-ghero aria-label="Introduction">
+    <div class="ghero__panels">
+        <div class="gpanel gframe g1" data-gesture="1">
+            <svg class="g1__svg" aria-hidden="true" focusable="false"></svg>
+            <div class="gframe__main">
+                <p class="gframe__hint g1__prompt">Draw anything, anywhere.</p>
+                <button type="button" class="gframe__again" data-again hidden>Draw again</button>
+                <div class="gframe__body" data-lock>
+                    <h1>Make the product easy to buy.</h1>
+                    <p>You drew the long way. I ship the straight one.</p>
+                    <div class="gframe__actions">
+                        <a class="gbtn gbtn--fill" asp-controller="Home" asp-action="Projects">View my work</a>
+                        <a class="gbtn gbtn--line" asp-controller="Home" asp-action="Resume">Resume</a>
+                        <button type="button" class="gbtn gbtn--line" data-straighten hidden>Straighten it</button>
                     </div>
-                    <ul class="hero-chips" aria-label="Core technologies">
-                        <li class="hero-chip hero-chip--net" style="--float-dur: 5.4s; --float-delay: 0.1s" data-motion-after-typewriter>
-                            <span class="hero-chip__float"><span class="hero-chip__mark hero-chip__mark--net" aria-hidden="true">.N</span><span class="hero-chip__label" data-chip-type=".NET"><span class="hero-chip__ghost" aria-hidden="true">.NET</span><span class="hero-chip__typed">.NET</span></span></span>
-                        </li>
-                        <li class="hero-chip hero-chip--shop" style="--float-dur: 4.8s; --float-delay: 0.6s" data-motion-after-typewriter>
-                            <span class="hero-chip__float"><span class="hero-chip__mark hero-chip__mark--shop" aria-hidden="true"><i class="fab fa-shopify"></i></span><span class="hero-chip__label" data-chip-type="Shopify"><span class="hero-chip__ghost" aria-hidden="true">Shopify</span><span class="hero-chip__typed">Shopify</span></span></span>
-                        </li>
-                        <li class="hero-chip hero-chip--js" style="--float-dur: 5.8s; --float-delay: 0.3s" data-motion-after-typewriter>
-                            <span class="hero-chip__float"><span class="hero-chip__mark hero-chip__mark--js" aria-hidden="true">JS</span><span class="hero-chip__label" data-chip-type="JavaScript"><span class="hero-chip__ghost" aria-hidden="true">JavaScript</span><span class="hero-chip__typed">JavaScript</span></span></span>
-                        </li>
-                        <li class="hero-chip hero-chip--sql" style="--float-dur: 4.6s; --float-delay: 0.9s" data-motion-after-typewriter>
-                            <span class="hero-chip__float"><span class="hero-chip__mark hero-chip__mark--sql" aria-hidden="true"><i class="fas fa-database"></i></span><span class="hero-chip__label" data-chip-type="SQL"><span class="hero-chip__ghost" aria-hidden="true">SQL</span><span class="hero-chip__typed">SQL</span></span></span>
-                        </li>
-                        <li class="hero-chip hero-chip--csharp" style="--float-dur: 5.1s; --float-delay: 0.45s" data-motion-after-typewriter>
-                            <span class="hero-chip__float"><span class="hero-chip__mark hero-chip__mark--csharp" aria-hidden="true">C#</span><span class="hero-chip__label" data-chip-type="C#"><span class="hero-chip__ghost" aria-hidden="true">C#</span><span class="hero-chip__typed">C#</span></span></span>
-                        </li>
-                    </ul>
                 </div>
+                <div class="g1__lane" data-lane aria-hidden="true"></div>
             </div>
         </div>
+    </div>
+    <div class="ghero__foot">
+        <p class="ghero__sign">Anastasiia Khrustaleva · Ontario</p>
+        <p class="gframe__hire">Open to Shopify and product roles</p>
     </div>
 </section>
 <section class="story-scroll story-scroll--after-hero" id="process" aria-label="How I work">
@@ -99,21 +36,21 @@
             <div class="story-scroll__visual-wrap">
                 <div class="story-scroll__visual" id="storyVisual">
                     <div class="story-scroll__panel is-active" data-story-panel="design">
-                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=900&q=80" alt="UI design workspace" loading="lazy" />
+                        <img class="home-frame__img" src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=900&q=80" alt="UI design workspace" loading="lazy" />
                         <div class="story-scroll__panel-overlay">
                             <p class="story-scroll__panel-tag">Step 01</p>
                             <p class="story-scroll__panel-title">Strategy, UX &amp; visual direction</p>
                         </div>
                     </div>
                     <div class="story-scroll__panel" data-story-panel="build">
-                        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=900&q=80" alt="Development on laptop" loading="lazy" />
+                        <img class="home-frame__img" src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=900&q=80" alt="Development on laptop" loading="lazy" />
                         <div class="story-scroll__panel-overlay">
                             <p class="story-scroll__panel-tag">Step 02</p>
                             <p class="story-scroll__panel-title">Development that ships clean</p>
                         </div>
                     </div>
                     <div class="story-scroll__panel" data-story-panel="launch">
-                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80" alt="E-commerce checkout experience" loading="lazy" />
+                        <img class="home-frame__img" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80" alt="E-commerce checkout experience" loading="lazy" />
                         <div class="story-scroll__panel-overlay">
                             <p class="story-scroll__panel-tag">Step 03</p>
                             <p class="story-scroll__panel-title">Deploy, measure &amp; improve</p>

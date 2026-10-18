@@ -396,9 +396,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const applyFilter = (category, updateUrl = true) => {
             let visible = 0;
+            const groups = {
+                design: ['design', 'content'],
+                content: ['design', 'content']
+            };
+            const accepted = groups[category] || [category];
             cards.forEach((card) => {
                 const categories = (card.dataset.category || '').split(' ').filter(Boolean);
-                const match = category === 'all' || categories.includes(category);
+                const match = category === 'all' || categories.some((item) => accepted.includes(item));
                 card.classList.toggle('filtered-out', !match);
                 card.style.animationDelay = match ? `${visible++ * 0.06}s` : '0s';
             });
@@ -428,20 +433,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const scrollHint = document.querySelector('.projects-scroll-hint');
         if (scrollHint) {
-            window.addEventListener('scroll', () => {
-                scrollHint.classList.toggle('hidden', window.scrollY > 120);
-            }, { passive: true });
+            const hero = document.querySelector('.page-projects .ghero');
+            const hideHint = () => {
+                const mark = hero ? hero.offsetHeight * 0.72 : 120;
+                scrollHint.classList.toggle('hidden', window.scrollY > mark);
+            };
+            hideHint();
+            window.addEventListener('scroll', hideHint, { passive: true });
         }
     };
 
     const initResumeStickyBar = () => {
         const bar = document.getElementById('resumeStickyBar');
-        const header = document.querySelector('.page-inner--resume .page-header');
-        if (!bar || !header) return;
+        const sentinel = document.querySelector('.page-resume .ghero') || document.querySelector('.resume-page');
+        if (!bar || !sentinel) return;
 
         const toggleBar = () => {
-            const show = window.scrollY > header.offsetHeight + header.offsetTop + 80;
-            bar.classList.toggle('is-visible', show);
+            const pastIntro = window.scrollY > sentinel.offsetHeight + sentinel.offsetTop - 40;
+            const nearEnd = window.scrollY + window.innerHeight > document.documentElement.scrollHeight - 320;
+            bar.classList.toggle('is-visible', pastIntro && nearEnd);
         };
 
         toggleBar();

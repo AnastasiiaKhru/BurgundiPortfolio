@@ -1,5 +1,6 @@
 @{
     ViewData["Title"] = "Projects";
+    ViewData["BodyClass"] = "page-projects theme-editorial";
 }
 @section Styles {
 <style>
@@ -145,13 +146,22 @@
 <div class="page-inner page-inner--projects">
     <header class="page-header">
         <div class="container">
-            <p class="page-header__label" data-motion-before-typewriter>Selected work</p>
-            <h1 class="page-header__title text-gradient-motion" data-typewriter data-typewriter-text="Projects that ship" data-typewriter-speed="48"></h1>
-            <p class="page-header__lead" data-motion-after-typewriter>Shopify storefronts, full-stack apps, WordPress builds, and design systems — filtered by craft, not fluff.</p>
+            <p class="page-header__label">Selected work</p>
+            <h1 class="page-header__title">Storefronts that are easy to buy.</h1>
+            <p class="page-header__lead">Shopify themes, checkout paths, and product interfaces — plus the full-stack work behind them. Filter by the kind of craft you need.</p>
+            <ol class="page-hero__craft">
+                <li><span>01</span> Shopify and commerce</li>
+                <li><span>02</span> Product pages and checkout</li>
+                <li><span>03</span> Launch and merchant support</li>
+            </ol>
+            <div class="page-hero__actions">
+                <a class="gbtn gbtn--fill" href="#work">Browse the work</a>
+                <a class="gbtn gbtn--line" asp-controller="Home" asp-action="Contact">Hire me</a>
+            </div>
         </div>
     </header>
 
-    <section class="projects-showcase">
+    <section class="projects-showcase" id="work">
         <div class="container container--projects-wide">
             <div class="projects-filter" role="tablist">
                 <button class="filter-btn active" data-filter="all" aria-selected="true">All</button>
@@ -159,13 +169,9 @@
                 <button class="filter-btn" data-filter="marketing">Marketing</button>
                 <button class="filter-btn" data-filter="crm">CRM</button>
                 <button class="filter-btn" data-filter="game">Games</button>
-                <button class="filter-btn" data-filter="design">Content Creation</button>
+                <button class="filter-btn" data-filter="content">Content Creation</button>
                 <button class="filter-btn" data-filter="fullstack">Full-Stack</button>
             </div>
-
-            <p class="projects-scroll-hint" aria-hidden="true">
-                <i class="fas fa-chevron-down"></i> Scroll to explore
-            </p>
 
             <partial name="_ProjectsPartial" />
         </div>
