@@ -86,14 +86,49 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
-    padding: 0.7rem clamp(1.15rem, 3vw, 2.4rem) 0.95rem;
+    gap: 1.25rem;
+    padding: 0.85rem clamp(1.15rem, 3vw, 2.4rem) 1.05rem;
     background: var(--ink);
 }
 
-.ghero__sign {
-    font-size: 0.95rem;
+.ghero__sign,
+.ghero__role {
+    display: flex;
+    flex-direction: column;
+    gap: 0.22rem;
+    margin: 0;
+}
+
+.ghero__name {
+    font-family: Fraunces, "Iowan Old Style", Palatino, Georgia, serif;
+    font-size: 1.12rem;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--cream);
+}
+
+.ghero__place {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
     color: var(--cream-dim);
+}
+
+.ghero__role {
+    align-items: flex-end;
+    text-align: right;
+    max-width: 34rem;
+}
+
+.ghero__hire {
+    color: var(--blush);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.4;
 }
 
 .ghero__switch {
@@ -295,8 +330,12 @@
 }
 
 .g1 {
-    cursor: crosshair;
+    cursor: none;
     touch-action: none;
+}
+
+.g1:not(.is-locked) {
+    align-items: start;
 }
 
 .g1.is-locked,
@@ -345,10 +384,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    align-self: stretch;
+    justify-content: center;
+    min-height: 100%;
     text-align: center;
 }
 
+.g1.is-portrait .g1__prompt,
 .g1.is-staged .g1__prompt {
     display: none;
 }
@@ -377,9 +419,16 @@
     justify-content: center;
 }
 
-.g1.is-locked .gframe__again {
+.g1.is-locked .gframe__again,
+.g1.is-staged .gframe__again {
     order: 4;
     margin-top: 1rem;
+}
+
+.g1.is-staged:not(.is-locked) .gframe__again {
+    display: inline-block !important;
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .g1.is-staged .g1__lane,
@@ -390,15 +439,22 @@
     margin: 1.15rem auto 0;
 }
 
+.g1.is-staged .gframe__body,
 .g1.is-locked .gframe__body {
     order: 1;
 }
 
+.g1.is-locked .g1__portrait {
+    opacity: 0;
+}
+
+.ghero:has(.g1.is-staged),
 .ghero:has(.g1.is-locked) {
     height: auto;
     overflow: visible;
 }
 
+.ghero:has(.g1.is-staged) .gpanel.g1,
 .ghero:has(.g1.is-locked) .gpanel.g1 {
     position: relative;
     inset: auto;
@@ -472,32 +528,64 @@
     fill: #FCF3EE;
 }
 
+.g1__portrait {
+    fill: none;
+    stroke: #FCF3EE;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 1.2px rgba(252, 243, 238, 0.7));
+}
+
+.g1.is-portrait .g1__portrait,
+.g1.is-portrait .g1__tip {
+    filter: drop-shadow(0 0 4px rgba(252, 243, 238, 0.85)) drop-shadow(0 0 12px rgba(232, 183, 183, 0.45));
+}
+
 .g1__tip {
     fill: #FCF3EE;
 }
 
 .g1__nib {
     position: absolute;
-    z-index: 4;
+    z-index: 5;
     top: 0;
     left: 0;
-    width: 22px;
-    height: 22px;
-    margin: -11px 0 0 -11px;
-    border: 1px solid rgba(232, 183, 183, 0.9);
-    border-radius: 50%;
+    width: 0;
+    height: 0;
     pointer-events: none;
+    transform-origin: 0 0;
+    filter: drop-shadow(0 0 3px rgba(252, 243, 238, 0.9)) drop-shadow(0 0 10px rgba(232, 183, 183, 0.5));
+}
+
+.g1__nib svg {
+    position: absolute;
+    left: -10px;
+    top: -39px;
+    display: block;
+    width: 20px;
+    height: 40px;
+    max-width: none;
+    overflow: visible;
+}
+
+.g1__nib path {
+    fill: none;
+    stroke: var(--cream);
+    stroke-width: 1.05;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .g1__nib::after {
     content: "";
     position: absolute;
-    left: 8px;
-    top: 8px;
-    width: 4px;
-    height: 4px;
+    left: -1.5px;
+    top: -1.5px;
+    width: 3px;
+    height: 3px;
     border-radius: 50%;
-    background: var(--blush);
+    background: var(--cream);
+    box-shadow: 0 0 5px 1px rgba(252, 243, 238, 0.95), 0 0 12px 3px rgba(232, 183, 183, 0.55);
 }
 
 .g1.is-drawing .g1__still,
@@ -769,6 +857,7 @@
     min-width: 7.5rem;
     cursor: grab;
     touch-action: none;
+    user-select: none;
 }
 
 .g3__track:active {
@@ -811,6 +900,7 @@
     line-height: 1.02;
     cursor: grab;
     touch-action: none;
+    user-select: none;
     transform: translateY(-50%);
     z-index: 2;
 }
@@ -822,14 +912,33 @@
 .g3__dots {
     position: absolute;
     z-index: 1;
-    top: 68%;
-    height: 1px;
-    background: rgba(232, 183, 183, 0.55);
+    top: calc(68% - 4px);
+    height: 8px;
+    background-image: radial-gradient(circle, #E8B7B7 2.1px, transparent 2.2px);
+    background-size: 16px 8px;
+    background-repeat: repeat-x;
+    background-position: left center;
     pointer-events: none;
 }
 
 .g3.is-settled .g3__dots {
     opacity: 0;
+}
+
+.g3__hint {
+    margin: 0.9rem 0 0;
+    max-width: 16rem;
+    color: var(--blush);
+    font-family: Outfit, "Segoe UI", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 560;
+    letter-spacing: 0.14em;
+    line-height: 1.45;
+    text-transform: uppercase;
+}
+
+.g3.is-settled .g3__hint {
+    display: none;
 }
 
 .g3__period {
@@ -917,6 +1026,21 @@
 .g3__form textarea:focus {
     outline: 2px solid #E8B7B7;
     outline-offset: 1px;
+}
+
+.g3__form.is-example input::placeholder,
+.g3__form.is-example textarea::placeholder {
+    color: rgba(66, 28, 44, 0.38);
+}
+
+.g3__form.is-example input,
+.g3__form.is-example textarea {
+    animation: g3fill 0.7s ease;
+}
+
+@keyframes g3fill {
+    from { box-shadow: 0 0 0 3px rgba(232, 183, 183, 0.85); }
+    to { box-shadow: 0 0 0 0 rgba(232, 183, 183, 0); }
 }
 
 .g3__form-note {
@@ -1307,8 +1431,19 @@
         font-size: clamp(2rem, 9vw, 2.7rem);
     }
 
-    .ghero__sign {
-        font-size: 0.78rem;
+    .ghero__foot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.7rem;
+    }
+
+    .ghero__role {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .ghero__name {
+        font-size: 1rem;
     }
 }
 

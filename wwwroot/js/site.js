@@ -565,8 +565,9 @@ document.addEventListener('DOMContentLoaded', () => {
             knowhowGroups.forEach((group) => {
                 const id = group.dataset.knowhowGroup;
                 const match = filter === 'all' || id === filter;
+                group.hidden = !match;
                 group.classList.toggle('is-focused', filter !== 'all' && match);
-                group.classList.toggle('is-dimmed', filter !== 'all' && !match);
+                group.classList.remove('is-dimmed');
             });
         };
 
@@ -599,16 +600,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const allTools = Array.from(page.querySelectorAll('.tool-card'));
         const allCategories = Array.from(page.querySelectorAll('.skill-category'));
         const allSections = Array.from(page.querySelectorAll('.skill-section'));
-
-        allCategories.forEach((category) => {
-            const title = category.querySelector('.skill-category__title');
-            const tags = category.querySelectorAll('.skill-tag');
-            if (!title || !tags.length || title.querySelector('.skill-category__count')) return;
-            const count = document.createElement('span');
-            count.className = 'skill-category__count';
-            count.textContent = `${tags.length}`;
-            title.appendChild(count);
-        });
 
         const toggleSkillTag = (tag) => {
             tag.classList.toggle('is-selected');
@@ -658,40 +649,44 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
+        const allSoft = Array.from(page.querySelectorAll('.soft-skill'));
+        const allLearning = Array.from(page.querySelectorAll('.learning-tag'));
+
         const filterSkills = (query) => {
             const term = query.trim().toLowerCase();
-            let visibleTags = 0;
+            let visible = 0;
 
-            allTags.forEach((tag) => {
-                const text = tag.textContent.trim().toLowerCase();
+            const apply = (el) => {
+                const text = el.textContent.trim().toLowerCase();
                 const match = !term || text.includes(term);
-                tag.classList.toggle('is-hidden', !match);
-                tag.classList.toggle('is-match', Boolean(term && match));
-                if (match) visibleTags += 1;
-            });
+                el.classList.toggle('is-hidden', !match);
+                el.classList.toggle('is-match', Boolean(term && match));
+                if (match) visible += 1;
+            };
 
-            allTools.forEach((card) => {
-                const text = card.textContent.trim().toLowerCase();
-                const match = !term || text.includes(term);
-                card.classList.toggle('is-hidden', !match);
-                card.classList.toggle('is-match', Boolean(term && match));
-            });
+            allTags.forEach(apply);
+            allTools.forEach(apply);
+            allSoft.forEach(apply);
+            allLearning.forEach(apply);
 
             allCategories.forEach((category) => {
-                const visibleInCategory = Array.from(category.querySelectorAll('.skill-tag')).some((tag) => !tag.classList.contains('is-hidden'));
+                const visibleInCategory = Array.from(category.querySelectorAll('.skill-tag, .tool-card')).some((el) => !el.classList.contains('is-hidden'));
                 category.classList.toggle('is-empty', Boolean(term) && !visibleInCategory);
             });
 
             allSections.forEach((section) => {
-                const hasVisibleTag = Array.from(section.querySelectorAll('.skill-tag')).some((tag) => !tag.classList.contains('is-hidden'));
-                const hasVisibleTool = Array.from(section.querySelectorAll('.tool-card')).some((card) => !card.classList.contains('is-hidden'));
-                const hasVisibleSoft = section.querySelector('.soft-skill') && !term;
-                const hasLearning = section.querySelector('.learning-tag') && !term;
-                section.classList.toggle('is-empty', Boolean(term) && !hasVisibleTag && !hasVisibleTool && !hasVisibleSoft && !hasLearning);
+                const hasVisible = Array.from(section.querySelectorAll('.skill-tag, .tool-card, .soft-skill, .learning-tag')).some((el) => !el.classList.contains('is-hidden'));
+                section.classList.toggle('is-empty', Boolean(term) && !hasVisible);
             });
 
+            const learning = page.querySelector('.learning-section');
+            if (learning) {
+                const hasVisible = Array.from(learning.querySelectorAll('.learning-tag')).some((el) => !el.classList.contains('is-hidden'));
+                learning.classList.toggle('is-empty', Boolean(term) && !hasVisible);
+            }
+
             if (searchMeta) {
-                searchMeta.textContent = term ? `${visibleTags} matches` : '75+ skills';
+                searchMeta.textContent = term ? `${visible} matches` : '';
             }
         };
 
@@ -733,18 +728,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (prefersReduced) return;
-
-        page.querySelectorAll('.tool-card').forEach((card) => {
-            card.addEventListener('mousemove', (event) => {
-                const rect = card.getBoundingClientRect();
-                const x = (event.clientX - rect.left) / rect.width - 0.5;
-                const y = (event.clientY - rect.top) / rect.height - 0.5;
-                card.style.transform = `perspective(800px) rotateX(${y * -4}deg) rotateY(${x * 5}deg) translateY(-4px)`;
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = '';
-            });
-        });
 
         page.querySelectorAll('.skills-pillar').forEach((pillar) => {
             pillar.addEventListener('mousemove', (event) => {

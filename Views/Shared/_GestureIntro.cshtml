@@ -57,27 +57,28 @@ else if (gesture == "word")
                     <span class="g3__row">
                         <span class="g3__track" data-track>
                             <span class="g3__dots" data-dots aria-hidden="true"></span>
-                            <button type="button" class="g3__chip" data-chip>write</button>
+                            <button type="button" class="g3__chip" data-chip aria-describedby="g3-hint">write</button>
                         </span>
                         <span class="g3__period">.</span>
                     </span>
                 </p>
+                <p class="g3__hint" id="g3-hint">Drag write along the dots.</p>
             </div>
             <div class="gframe__stage">
                 <div class="gwell g3__well">
                 <article class="g3__card g3__card--form" data-card>
-                    <form class="g3__form" data-contact-form>
+                    <form class="g3__form" data-contact-form autocomplete="off">
                         <label>
                             <span>Name</span>
-                            <input name="name" type="text" required autocomplete="name" />
+                            <input name="name" type="text" required autocomplete="off" />
                         </label>
                         <label>
                             <span>Email</span>
-                            <input name="email" type="email" required autocomplete="email" />
+                            <input name="email" type="email" required autocomplete="off" />
                         </label>
                         <label>
                             <span>Message</span>
-                            <textarea name="message" rows="3" required></textarea>
+                            <textarea name="message" rows="3" required autocomplete="off"></textarea>
                         </label>
                         <button type="submit" class="gcta">Send</button>
                         <p class="g3__form-note" data-form-note>Opens your email to nastiakhru@gmail.com</p>

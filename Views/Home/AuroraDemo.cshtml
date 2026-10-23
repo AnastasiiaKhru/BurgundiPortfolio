@@ -87,29 +87,6 @@
             font-family: Oswald, sans-serif;
             letter-spacing: 0.12em;
         }
-        .players {
-            display: flex;
-            justify-content: center;
-            gap: 0.55rem;
-            margin: 0.85rem auto 0;
-            padding: 0;
-            list-style: none;
-        }
-        .players li {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            min-width: 8.5rem;
-            padding: 0.35rem 0.6rem;
-            border-radius: 999px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.16);
-        }
-        .players li.is-acting { border-color: rgba(255, 255, 255, 0.7); }
-        .pip { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: #ef4444; }
-        .pip.blue { background: #60a5fa; }
-        .players strong { font-size: 0.82rem; }
-        .players em { margin-left: auto; font-style: normal; font-size: 0.68rem; color: rgba(255, 255, 255, 0.7); }
         .feed {
             align-self: center;
             margin-top: 0.45rem;
@@ -188,18 +165,14 @@
                 <p class="ribbon blue">No phone<br />for a month · B</p>
             </div>
             <p class="timer" id="timer">02:00</p>
-            <ul class="players" aria-label="Players in this match">
-                <li data-player="mia"><span class="pip" aria-hidden="true"></span><strong>mia</strong><em>red</em></li>
-                <li data-player="noah"><span class="pip blue" aria-hidden="true"></span><strong>noah</strong><em>blue</em></li>
-            </ul>
-            <p class="feed" id="feed">mia and noah joined the live.</p>
+            <p class="feed" id="feed">Send a gift to move the match.</p>
             <div class="gifts">
                 <button type="button" data-team="red" data-hit="6">Rose · red</button>
                 <button type="button" data-team="red" data-hit="14">Galaxy · red</button>
                 <button type="button" class="blue" data-team="blue" data-hit="6">Rose · blue</button>
                 <button type="button" class="blue" data-team="blue" data-hit="14">Galaxy · blue</button>
             </div>
-            <p class="note">Gifts move the match. On TikTok, chat and gifts do this live.</p>
+            <p class="note">This demo does not simulate viewers. On TikTok Live, gift events and chat commands do this through the connector.</p>
         </div>
     </div>
     <script>
@@ -218,10 +191,12 @@
             blueLabel.textContent = blue.toFixed(2) + "%";
         }
         paint();
+        var feed = document.getElementById("feed");
         document.querySelectorAll(".gifts button").forEach(function (button) {
             button.addEventListener("click", function () {
                 var hit = Number(button.getAttribute("data-hit"));
-                if (button.getAttribute("data-team") === "red") {
+                var team = button.getAttribute("data-team");
+                if (team === "red") {
                     red = Math.min(100, red + hit);
                     blue = Math.max(0, blue - hit * 0.35);
                 } else {
@@ -229,6 +204,7 @@
                     red = Math.max(0, red - hit * 0.35);
                 }
                 paint();
+                feed.textContent = button.textContent.trim() + " moved the match.";
             });
         });
         setInterval(function () {
@@ -238,29 +214,6 @@
             var s = String(left % 60).padStart(2, "0");
             timer.textContent = m + ":" + s;
         }, 1000);
-        var crowd = [
-            { name: "mia", team: "red", gift: "Rose", hit: 4 },
-            { name: "noah", team: "blue", gift: "Rose", hit: 4 }
-        ];
-        var feed = document.getElementById("feed");
-        var turn = 0;
-        setInterval(function () {
-            if (left <= 0) return;
-            var player = crowd[turn % crowd.length];
-            turn += 1;
-            if (player.team === "red") {
-                red = Math.min(100, red + player.hit);
-                blue = Math.max(0, blue - player.hit * 0.35);
-            } else {
-                blue = Math.min(100, blue + player.hit);
-                red = Math.max(0, red - player.hit * 0.35);
-            }
-            paint();
-            feed.textContent = player.name + " sent a " + player.gift;
-            document.querySelectorAll(".players li").forEach(function (item) {
-                item.classList.toggle("is-acting", item.getAttribute("data-player") === player.name);
-            });
-        }, 3200);
     </script>
 </body>
 </html>
